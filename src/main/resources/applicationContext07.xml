@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context = "http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <bean id="musicBeanSingleton"
+          class="com.yakov.spring07.ClassicalMusic07"
+          scope="singleton"
+          init-method="doMyInit"
+          destroy-method="doMyDestroy">
+        <property name="genreName" value="Opera"/>
+    </bean>
+
+    <bean id="musicBeanPrototype"
+          class="com.yakov.spring07.ClassicalMusic07"
+          scope="prototype"
+          init-method="doMyInit"
+          destroy-method="doMyDestroy">
+        <property name="genreName" value="Jazz"/>
+    </bean>
+
+    <bean id="musicBean"
+          class="com.yakov.spring07.ClassicalMusic07">
+    </bean>
+
+    <bean id="musicPlayer"
+          class="com.yakov.spring07.MusicPlayer07"
+          scope="singleton"> <!-- it either can be singleton or prototype -->
+        <constructor-arg ref="musicBean"/>
+    </bean>
+
+    <bean id="musicPlayerS"
+          class="com.yakov.spring07.MusicPlayer07"
+          scope="singleton"> <!-- it either can be singleton or prototype -->
+        <constructor-arg ref="musicBeanSingleton"/>
+    </bean>
+
+    <bean id="musicPlayerP"
+          class="com.yakov.spring07.MusicPlayer07"
+          scope="prototype"> <!-- it either can be singleton or prototype -->
+        <constructor-arg ref="musicBeanPrototype"/>
+    </bean>
+
+    <bean id="musicPlayerF"
+          class="com.yakov.spring07.MusicPlayer07"
+          factory-method="getMPFactoryMethod">
+    </bean>
+
+</beans>

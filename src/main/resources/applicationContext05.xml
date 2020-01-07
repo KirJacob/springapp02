@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context = "http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- to set values from properties file -->
+    <context:property-placeholder location="classpath:musicPlayer.properties"/>
+
+    <bean id="musicBean"
+          class="com.yakov.spring05.RockMusic05"
+          scope="singleton">
+    </bean>
+
+    <bean id="classicMusicBean"
+          class="com.yakov.spring05.ClassicalMusic05">
+    </bean>
+
+    <bean id="rapMusicBean"
+          class="com.yakov.spring05.RapMusic05">
+    </bean>
+
+    <bean id="musicPlayerOld"
+          class="com.yakov.spring05.MusicPlayer05">
+        <property name="music" ref="musicBean"/>
+        <property name="name" value="Some name"/>
+        <property name="volume" value="50"/>
+    </bean>
+
+    <!-- use values from properties file -->
+    <bean id="musicPlayer"
+          class="com.yakov.spring05.MusicPlayer05">
+        <property name="music" ref="musicBean"/>
+        <property name="name" value="${musicPlayer.name}"/>
+        <property name="volume" value="${musicPlayer.volume}"/>
+    </bean>
+
+    <bean id="musicPlayerList"
+          class="com.yakov.spring05.MusicPlayer051">
+        <property name="musicList">
+            <list value-type="com.yakov.spring05.Music05">
+                <ref bean="musicBean"/>
+                <ref bean="classicMusicBean"/>
+                <ref bean="rapMusicBean"/>
+            </list>
+        </property>
+        <property name="name" value="${musicPlayer.name}"/>
+        <property name="volume" value="${musicPlayer.volume}"/>
+    </bean>
+
+</beans>

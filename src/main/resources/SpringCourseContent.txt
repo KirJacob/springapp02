@@ -1,0 +1,9 @@
+1. create simplest bean with constructor and with setter
+2. inversion of control, insert bean when creating other bean
+3. set values when creating bean in application context
+4. init and destroy method
+5. singelton and prototype scope for beans
+6. use values from properties file
+7. create bean with factory method
+
+8.
